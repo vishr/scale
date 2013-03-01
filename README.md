@@ -1,2 +1,2 @@
-scale
-=====
+# Scale
+A load balancer
