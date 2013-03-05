@@ -1,0 +1,21 @@
+{
+  "name": "scale",
+  "version": "0.0.0",
+  "description": "Load balancer",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vishr/scale.git"
+  },
+  "keywords": [
+    "http",
+    "proxy",
+    "load",
+    "balancer"
+  ],
+  "author": "Vishal Rana",
+  "license": "BSD"
+}
