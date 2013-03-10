@@ -28,8 +28,12 @@ A load balancer
       -V, --version  output the version number
       -e, --edit     edit config
 ```
-**Config**
-```yml
+
+## Configuration
+```sh
+  $ scale -e config
+
+```yaml
   servers:
   - name: s1
     protocol: http
