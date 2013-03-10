@@ -28,8 +28,8 @@ program.version(pkg.version)
 program.command("config")
   .description("show config")
   .action(function() {
-    logger.info(cfg.file.grey);
     program.edit ? editor(cfg.file) : logger.info(JSON.stringify(cfg, null, 2));
+    logger.info(cfg.file.grey);
   });
 
 program.command("start").description("start scale").action(function() {

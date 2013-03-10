@@ -11,7 +11,7 @@ var cfg = exports.config = yaml.load(fs.readFileSync(cfgFile, "utf-8"));
 cfg.root = cfg.root || path.join(process.env.HOME || process.env.USERPROFILE, ".scale");
 fs.mkdirsSync(cfg.root);
 cfg.file = cfgFile;
-cfg.port = cfg.port || 4141;
+cfg.port = cfg.port || 1431;
 cfg.pidFile = cfg.pidFile || path.join(cfg.root, "scale.pid");
 cfg.logFile = cfg.logFile || path.join(cfg.root, "scale.log");
 fs.writeFileSync(cfgFile, yaml.dump(cfg));

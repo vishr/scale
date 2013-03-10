@@ -6,12 +6,12 @@ A load balancer
 
 ## Installation
 ```sh
-  $ npm i gat -g
+  $ npm i scale -g
 ```
 
 ## Usage
 ```sh
-  $ gat -h
+  $ scale -h
     Usage: scale [options] [command]
 
     Commands:
@@ -27,24 +27,31 @@ A load balancer
       -h, --help     output usage information
       -V, --version  output the version number
       -e, --edit     edit config
+
+  $ scale start
+  info: starting scale on port 4141
+
+  $ scale config      # show config
+
+  $ scale -e config   # edit config
 ```
 
 ## Configuration
-```sh
-  $ scale -e config
-
 ```yaml
+  ---
+  # Root directory to store scale data
+  root: $HOME/.scale
+
+  # Port on which scale runs
+  port: 1431
+
+  # List of servers to balance load
   servers:
-  - name: s1
-    protocol: http
-    hostname: httpbin.org
-  - name: s2
-    protocol: http
-    hostname: stackoverflow.com
-  - name: s3
-    protocol: https
-    hostname: github.com
-  technique: random
-  root: /Users/vrana/.scale
-  port: 4141
+  - name:
+    protocol:   # http/https
+    hostname:
+    port:
+
+  # Routing technique
+  technique:    # random/roundrobin
 ```
