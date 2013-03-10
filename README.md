@@ -38,7 +38,6 @@ A load balancer
 
 ## Configuration
 ```yaml
-  ---
   # Root directory to store scale data
   root: $HOME/.scale
 
@@ -56,17 +55,17 @@ A load balancer
   technique:    # random/roundrobin
 ```
 
-Example
+**Example**
 ```yaml
-servers:
-  - name: s1
-    protocol: http
-    hostname: httpbin.org
-  - name: s2
-    protocol: http
-    hostname: stackoverflow.com
-  - name: s3
-    protocol: http
-    hostname: www.yahoo.com
-technique: random
+  servers:
+    - name: s1
+      protocol: http
+      hostname: httpbin.org
+    - name: s2
+      protocol: http
+      hostname: stackoverflow.com
+    - name: s3
+      protocol: http
+      hostname: www.yahoo.com
+  technique: random
 ```
