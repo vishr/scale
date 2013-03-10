@@ -1,8 +1,15 @@
 {
   "name": "scale",
   "version": "0.0.1",
-  "description": "Load balancer",
-  "main": "server.js",
+  "description": "A load balancer",
+  "bin": "bin/scale",
+  "dependencies": {
+    "commander": "1.1.x",
+    "fs-extra": "0.5.x",
+    "winston": "0.6.x",
+    "js-yaml": "2.x",
+    "editor": "0.x"
+  },
   "scripts": {
     "test": "mocha"
   },
@@ -14,8 +21,7 @@
     "http",
     "proxy",
     "load",
-    "balancer"
-  ],
+    "balancer"],
   "author": "Vishal Rana",
   "license": "BSD"
 }

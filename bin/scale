@@ -1,0 +1,95 @@
+#!/usr/bin/env node
+
+var program = require("commander");
+var os = require("os");
+var path = require("path");
+var fs = require("fs-extra");
+var spawn = require("child_process").spawn;
+var net = require("net");
+var winston = require("winston");
+var editor = require("editor");
+var cfg = require("../scale").config;
+var pkg = require("../package.json");
+
+var eol = "win32" === os.platform() ? "\r\n" : "\n";
+
+// Logging
+var logger = new winston.Logger({
+  transports: [
+  new winston.transports.Console({
+    colorize: true,
+    prettyPrint: true
+  })]
+});
+
+program.version(pkg.version)
+  .option("-e, --edit", "edit config");
+
+program.command("config")
+  .description("show config")
+  .action(function() {
+    logger.info(cfg.file.grey);
+    program.edit ? editor(cfg.file) : logger.info(JSON.stringify(cfg, null, 2));
+  });
+
+program.command("start").description("start scale").action(function() {
+  start();
+});
+
+program.command("stop").description("stop scale").action(function() {
+  stop();
+});
+
+program.command("restart").description("restart scale").action(function() {
+  stop();
+  setTimeout(start, 200);
+});
+
+program.command("*").description("unknown command").action(function() {
+  logger.error("unknown command");
+  program.help();
+});
+
+program.parse(process.argv);
+
+if (!program.args.length) {
+  program.help();
+}
+
+function start() {
+  logger.info("starting scale on port " + cfg.port.toString().grey);
+  var client = net.connect({
+    port: cfg.port
+  });
+
+  // Check if already running
+  client.on("connect", function() {
+    logger.error("failed starting scale - " + "port already in use".yellow);
+    client.end();
+  });
+
+  client.on("error", function() {
+    // Start scale
+    var child = spawn(process.execPath, [path.join(__dirname, "..", "server")], {
+      detached: true,
+      stdio: ["ignore", "ignore", "ignore"]
+    });
+
+    try {
+      fs.writeFileSync(cfg.pidFile, child.pid + eol);
+      child.unref();
+    } catch (e) {
+      logger.error("failed starting scale - " + e.message.yellow);
+    }
+  });
+}
+
+function stop() {
+  logger.warn("stopping scale");
+  try {
+    var pid = fs.readFileSync(cfg.pidFile, "utf-8");
+    process.kill(pid);
+  } catch (e) {
+    logger.error("failed stopping scale - " + e.message.yellow);
+  }
+}
