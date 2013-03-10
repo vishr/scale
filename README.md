@@ -71,4 +71,4 @@ A load balancer
 ```
 
 ## Caveats
-* Scale is in very very early stage, please use is just for testing and development, seriously!
+* Scale is in very very early stage, please use it just for testing and development, seriously!
