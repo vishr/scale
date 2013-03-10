@@ -29,7 +29,7 @@ A load balancer
       -e, --edit     edit config
 ```
 **Config**
-```yml
+```yaml
   servers:
   - name: s1
     protocol: http
