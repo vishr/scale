@@ -55,7 +55,7 @@ A load balancer
   technique:    # random/roundrobin
 ```
 
-**Example** config.yml
+**Example** `npm/lib/node_modules/scale/config.yml`
 ```yaml
   servers:
     - name: s1
