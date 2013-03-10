@@ -55,7 +55,7 @@ A load balancer
   technique:    # random/roundrobin
 ```
 
-**Example**
+**Example** config.yml
 ```yaml
   servers:
     - name: s1
@@ -69,3 +69,6 @@ A load balancer
       hostname: www.yahoo.com
   technique: random
 ```
+
+## Caveats
+* Scale is in very very early stage, please use is just for testing and development, seriously!
