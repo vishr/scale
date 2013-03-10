@@ -78,16 +78,16 @@
 
   <span class="c1"># List of servers to balance load</span>
   <span class="l-Scalar-Plain">servers</span><span class="p-Indicator">:</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">protocol</span><span class="p-Indicator">:</span>   <span class="c1"># http/https</span>
-    <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">protocol</span><span class="p-Indicator">:</span>   <span class="c1"># http/https</span>
+      <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>
 
   <span class="c1"># Routing technique</span>
   <span class="l-Scalar-Plain">technique</span><span class="p-Indicator">:</span>    <span class="c1"># random/roundrobin</span>
 </pre></div>
 
-<p><strong>Example</strong></p>
+<p><strong>Example</strong> <code>npm/lib/node_modules/scale/config.yml</code></p>
 
 <div class="highlight"><pre>  <span class="l-Scalar-Plain">servers</span><span class="p-Indicator">:</span>
     <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">s1</span>
@@ -101,6 +101,12 @@
       <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">www.yahoo.com</span>
   <span class="l-Scalar-Plain">technique</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">random</span>
 </pre></div>
+
+<h2>Caveats</h2>
+
+<ul>
+<li>Scale is in very very early stage, please use is just for testing and development, seriously!</li>
+</ul>
       </section>
     </div>
 
