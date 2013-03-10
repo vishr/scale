@@ -7,7 +7,7 @@ var yaml = require("js-yaml");
 
 // Configuration
 var cfgFile = path.join(__dirname, "config.yml");
-var cfg = exports.config = yaml.load(fs.readFileSync(cfgFile, "utf-8"));
+var cfg = exports.config = fs.existsSync(cfgFile) ? yaml.load(fs.readFileSync(cfgFile, "utf-8")) : {};
 cfg.root = cfg.root || path.join(process.env.HOME || process.env.USERPROFILE, ".scale");
 fs.mkdirsSync(cfg.root);
 cfg.file = cfgFile;

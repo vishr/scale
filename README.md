@@ -46,10 +46,10 @@ A load balancer
 
   # List of servers to balance load
   servers:
-  - name:
-    protocol:   # http/https
-    hostname:
-    port:
+    - name:
+      protocol:   # http/https
+      hostname:
+      port:
 
   # Routing technique
   technique:    # random/roundrobin
