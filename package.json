@@ -1,6 +1,6 @@
 {
   "name": "scale",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A load balancer",
   "bin": "bin/scale",
   "dependencies": {
@@ -21,7 +21,8 @@
     "http",
     "proxy",
     "load",
-    "balancer"],
+    "balancer"
+  ],
   "author": "Vishal Rana",
   "license": "BSD"
 }
