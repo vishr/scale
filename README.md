@@ -55,3 +55,18 @@ A load balancer
   # Routing technique
   technique:    # random/roundrobin
 ```
+
+Example
+```yaml
+servers:
+  - name: s1
+    protocol: http
+    hostname: httpbin.org
+  - name: s2
+    protocol: http
+    hostname: stackoverflow.com
+  - name: s3
+    protocol: http
+    hostname: www.yahoo.com
+technique: random
+```
