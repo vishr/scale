@@ -36,6 +36,7 @@
 
 <ul>
 <li>Supports http and https protocols</li>
+<li>Port forwarding</li>
 </ul><h2>Installation</h2>
 
 <div class="highlight"><pre>  <span class="nv">$ </span>npm i scale -g
@@ -85,6 +86,13 @@
 
   <span class="c1"># Routing technique</span>
   <span class="l-Scalar-Plain">technique</span><span class="p-Indicator">:</span>    <span class="c1"># random/roundrobin</span>
+
+  <span class="c1"># Port forwarding</span>
+  <span class="l-Scalar-Plain">forward</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>
 </pre></div>
 
 <p><strong>Example</strong> <code>npm/lib/node_modules/scale/config.yml</code></p>
@@ -100,6 +108,11 @@
       <span class="l-Scalar-Plain">protocol</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http</span>
       <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">www.yahoo.com</span>
   <span class="l-Scalar-Plain">technique</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">random</span>
+  <span class="l-Scalar-Plain">forward</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4545</span>
+      <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+        <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">22</span>
 </pre></div>
 
 <h2>Caveats</h2>
