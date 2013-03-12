@@ -3,6 +3,7 @@ A load balancer
 
 ## Features
 * Supports http and https protocols
+* Port forwarding
 
 ## Installation
 ```sh
@@ -53,6 +54,13 @@ A load balancer
 
   # Routing technique
   technique:    # random/roundrobin
+
+  # Port forwarding
+  forward:
+    - port:
+    target:
+      hostname:
+      port:
 ```
 
 **Example** `npm/lib/node_modules/scale/config.yml`
@@ -68,6 +76,11 @@ A load balancer
       protocol: http
       hostname: www.yahoo.com
   technique: random
+  forward:
+    - port: 4545
+      target:
+        hostname: localhost
+        port: 22
 ```
 
 ## Caveats

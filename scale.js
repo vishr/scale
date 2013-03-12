@@ -17,7 +17,7 @@ cfg.logFile = cfg.logFile || path.join(cfg.root, "scale.log");
 fs.writeFileSync(cfgFile, yaml.dump(cfg));
 
 // Logging
-exports.logger = new winston.Logger({
+var logger = exports.logger = new winston.Logger({
   transports: [
   new winston.transports.File({
     filename: cfg.logFile
@@ -28,6 +28,13 @@ exports.logger = new winston.Logger({
 var i = 0;
 
 exports.route = function(req, res) {
+  // No servers defined
+  if (!cfg.servers || !cfg.servers.length) {
+    res.writeHead(503);
+    logger.error("no servers defined for load-balancing");
+    return res.end();
+  }
+
   var server;
   var client;
 
