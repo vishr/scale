@@ -6,6 +6,7 @@
   "dependencies": {
     "commander": "1.1.x",
     "fs-extra": "0.5.x",
+    "lodash": "1.x",
     "winston": "0.6.x",
     "js-yaml": "2.x",
     "editor": "0.x"

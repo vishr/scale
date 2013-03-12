@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
-var program = require("commander");
 var os = require("os");
 var path = require("path");
 var fs = require("fs-extra");
 var spawn = require("child_process").spawn;
 var net = require("net");
+var util = require("util");
+var async = require("async");
+var _ = require("lodash");
+var program = require("commander");
 var winston = require("winston");
 var editor = require("editor");
 var cfg = require("../scale").config;
@@ -28,9 +31,9 @@ program.version(pkg.version)
 program.command("config")
   .description("show config")
   .action(function() {
-    program.edit ? editor(cfg.file) : logger.info(JSON.stringify(cfg, null, 2));
-    logger.info(cfg.file.grey);
-  });
+  program.edit ? editor(cfg.file) : logger.info(JSON.stringify(cfg, null, 2));
+  logger.info(cfg.file.grey);
+});
 
 program.command("start").description("start scale").action(function() {
   start();
@@ -58,29 +61,47 @@ if (!program.args.length) {
 
 function start() {
   logger.info("starting scale on port " + cfg.port.toString().grey);
-  var client = net.connect({
-    port: cfg.port
-  });
 
-  // Check if already running
+  // Check if port is in use
+  var client = net.connect(cfg.port);
   client.on("connect", function() {
     logger.error("failed starting scale - " + "port already in use".yellow);
     client.end();
   });
 
   client.on("error", function() {
-    // Start scale
-    var child = spawn(process.execPath, [path.join(__dirname, "..", "server")], {
-      detached: true,
-      stdio: ["ignore", "ignore", "ignore"]
-    });
+    // Check if forwarding ports are in use
+    async.parallel(_.map(cfg.forward, function(fwd) {
+      return function(cb) {
+        logger.info(util.format("forwarding port %d %s %s:%d", fwd.port, "=>".blue, fwd.target.hostname, fwd.target.port));
 
-    try {
-      fs.writeFileSync(cfg.pidFile, child.pid + eol);
-      child.unref();
-    } catch (e) {
-      logger.error("failed starting scale - " + e.message.yellow);
-    }
+        var port = net.connect(fwd.port);
+        port.on("connect", function() {
+          port.end();
+          cb(new Error(util.format("port %s already in use", fwd.port)));
+        });
+
+        port.on("error", function() {
+          // Okay
+          cb();
+        });
+      };
+    }), function(err) {
+      if (err) {
+        return logger.error(err.message);
+      }
+      // Start scale
+      var child = spawn(process.execPath, [path.join(__dirname, "..", "server")], {
+        detached: true,
+        stdio: "ignore"
+      });
+      try {
+        fs.writeFileSync(cfg.pidFile, child.pid + eol);
+        child.unref();
+      } catch (e) {
+        logger.error("failed starting scale - " + e.message.yellow);
+      }
+    });
   });
 }
 
